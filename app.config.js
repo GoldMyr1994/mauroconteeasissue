@@ -24,8 +24,8 @@ export default {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
-      }
-
+      },
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON
     },
     web: {
       "favicon": "./assets/favicon.png"
