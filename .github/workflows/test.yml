@@ -1,0 +1,100 @@
+name: Test Android and iOS Build
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs: 
+  test-android-build:
+    runs-on: ubuntu-latest
+    name: Test Android Build
+    steps:
+      - name: 🏗 Setup repository
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+
+      - name: Expo Env Info
+        run: npx expo-env-info
+          
+      - name: 🚀 Build
+        if: ${{ github.ref_name == 'main' }}
+        run: EXPO_DEBUG=true eas build --platform=android --profile=production --non-interactive
+      - name: 🚀 Build
+        if: ${{ github.ref_name != 'main' }}
+        run: EXPO_DEBUG=true eas build --platform=android --profile=${{ github.ref_name }} --non-interactive
+  test-ios-build:
+    runs-on: ubuntu-latest
+    name: Test iOS Build
+    steps:
+      - name: 🏗 Setup repository
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+          
+      - name: Expo Env Info
+        run: npx expo-env-info
+
+      - name: 🚀 Build
+        if: ${{ github.ref_name == 'main' }}
+        run: EXPO_DEBUG=true eas build --platform=ios --profile=production --non-interactive
+      - name: 🚀 Build
+        if: ${{ github.ref_name != 'main' }}
+        run: EXPO_DEBUG=true eas build --platform=ios --profile=${{ github.ref_name }} --non-interactive
+  test-all:
+    runs-on: ubuntu-latest
+    name: Test All Build
+    steps:
+      - name: 🏗 Setup repository
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+
+      - name: Expo Env Info
+        run: npx expo-env-info
+          
+      - name: 🚀 Build
+        if: ${{ github.ref_name == 'main' }}
+        run: EXPO_DEBUG=true eas build --platform=all --profile=production --non-interactive
+      - name: 🚀 Build
+        if: ${{ github.ref_name != 'main' }}
+        run: EXPO_DEBUG=true eas build --platform=all --profile=${{ github.ref_name }} --non-interactive
