@@ -29,6 +29,9 @@ jobs:
 
       - name: Expo Env Info
         run: npx expo-env-info
+
+      - name: Expo Doctor
+        run: npx expo-doctor
           
       - name: 🚀 Build
         if: ${{ github.ref_name == 'main' }}
@@ -61,6 +64,9 @@ jobs:
       - name: Expo Env Info
         run: npx expo-env-info
 
+      - name: Expo Doctor
+        run: npx expo-doctor
+
       - name: 🚀 Build
         if: ${{ github.ref_name == 'main' }}
         run: EXPO_DEBUG=true eas build --platform=ios --profile=production --non-interactive
@@ -91,6 +97,9 @@ jobs:
 
       - name: Expo Env Info
         run: npx expo-env-info
+
+      - name: Expo Doctor
+        run: npx expo-doctor
           
       - name: 🚀 Build
         if: ${{ github.ref_name == 'main' }}
