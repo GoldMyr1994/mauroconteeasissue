@@ -69,6 +69,9 @@ jobs:
       - name: Expo Doctor
         run: npx expo-doctor
 
+      - name: React Native Info
+        run: npx react-native info
+
       - name: 🚀 Build
         if: ${{ github.ref_name == 'main' }}
         run: EXPO_DEBUG=true eas build --platform=ios --profile=production --non-interactive
