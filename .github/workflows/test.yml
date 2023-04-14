@@ -74,9 +74,13 @@ jobs:
 
       - name: 🚀 Build
         run: 
-          EXPO_DEBUG=true expo prebuild --clean
-          cat ios/Podfile
-          cat android/build.gradle
+          EXPO_DEBUG=true expo prebuild --clean;
+          cat ios/mauroconteeasissue/AppDelegate.m;
+          cat android/build.gradle;
+          cat android/app/build.gradle;
+          cat android/settings.gradle;
+          cat android/app/src/main/java/com/yourapp/MainApplication.java;
+          cat android/app/src/main/AndroidManifest.xml;
       - name: 🚀 Build
         if: ${{ github.ref_name == 'main' }}
         run: EXPO_DEBUG=true eas build --platform=ios --profile=production --non-interactive
